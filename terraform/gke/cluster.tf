@@ -146,6 +146,12 @@ resource "google_storage_bucket_iam_member" "member" {
   member = "serviceAccount:${module.gke_service_account.email}"
 }
 
+resource "google_storage_bucket_iam_member" "member_eu" {
+  bucket = "eu.artifacts.${var.project}.appspot.com"
+  role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${module.gke_service_account.email}"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE A NETWORK TO DEPLOY THE CLUSTER TO
 # ---------------------------------------------------------------------------------------------------------------------

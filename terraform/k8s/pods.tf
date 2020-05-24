@@ -27,7 +27,7 @@ resource "kubernetes_deployment" "go-api" {
 
       spec {
         container {
-          image = "eu.gcr.io/go-kubernetes-test-275611/go-api:d5809fc2d476bd97a03a46c9b00d053251df020e"
+          image = "eu.gcr.io/go-kubernetes-test-275611/go-api:b738861a1e8773c1a6a7324ce8b80a02caecaa30"
           name  = "go-api"
 
           resources {
