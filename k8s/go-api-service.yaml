@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-api-service
+  labels:
+    app: go-api
+spec:
+  selector:
+    app: go-api
+    tier: backend
+  ports:
+  - port: 8080
+  type: LoadBalancer

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-api-example
+  labels:
+    app: simple-backend
+spec:
+  selector:
+    matchLabels:
+      app: go-api
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: go-api
+        tier: backend
+    spec:
+      containers:
+      - name: go-api
+        image: gcr.io/go-kubernetes-test-275611/go-api:v3
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8080
+          name: go-api
