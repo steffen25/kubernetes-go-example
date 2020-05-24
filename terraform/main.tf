@@ -2,8 +2,8 @@ terraform {
   # The modules used in this guide require Terraform 0.12, additionally we depend on a bug fixed in version 0.12.7.
   required_version = ">= 0.12.7"
   backend "gcs" {
-        bucket = "go-kubernetes-test"
-        prefix = "terraform-state"
+    bucket = "tf-state-go-kubernetes"
+    prefix = "terraform-state"
   }
 }
 
@@ -203,5 +203,24 @@ resource "google_storage_bucket_iam_binding" "bucket_reader" {
   role = "roles/storage.objectViewer"
   members = [
     join(":", ["serviceAccount", google_service_account.storage_reader_writer.email])
+  ]
+}
+
+# CircleCI
+resource "google_service_account" "circleci_builder" {
+  account_id = "circlecibuilder"
+  display_name = "CircleCI builder"
+  project = var.project
+}
+
+resource "google_service_account_key" "circleci_key" {
+  service_account_id = google_service_account.circleci_builder.name
+}
+// IAM Bindings
+resource "google_storage_bucket_iam_binding" "storage_admin" {
+  bucket = "artifacts.${var.project}.appspot.com"
+  role = "roles/storage.admin"
+  members = [
+    join(":", ["serviceAccount", google_service_account.circleci_builder.email])
   ]
 }
