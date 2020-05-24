@@ -18,6 +18,7 @@ jobs:
           digest-path: /tmp/digest.txt
           image: go-api
           registry-url: eu.gcr.io
+          tag: $CIRCLE_SHA1
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
