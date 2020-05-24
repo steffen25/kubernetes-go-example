@@ -13,6 +13,7 @@ jobs:
       - gcp-gcr/build-image:
           image: go-api
           registry-url: eu.gcr.io
+          tag: $CIRCLE_SHA1
       - gcp-gcr/push-image:
           digest-path: /tmp/digest.txt
           image: go-api
